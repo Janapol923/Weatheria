@@ -1,115 +1,125 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:weatheria/constants/WeatherColors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weatheria/home/home_bloc.dart';
+import 'package:weatheria/util/weather_util.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Current Weather'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {},
-          )
-        ],
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 200.0,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: WeatherColors.rainySkyNight),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Currently',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1
-                        ?.copyWith(color: Colors.white),
+    return BlocProvider(
+      create: (_) => HomeBloc(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Current Weather'),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {},
+            )
+          ],
+        ),
+        body: BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 200.0,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: WeatherUtil.getColorsByWeatherConditions(
+                      int.parse(state.current?.condition.code ?? '1000'),
+                    ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '31',
+                        'Currently',
                         style: Theme.of(context)
                             .textTheme
-                            .headline3
+                            .bodyText1
                             ?.copyWith(color: Colors.white),
                       ),
-                      Flexible(
-                        fit: FlexFit.tight,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Partly Cloudy',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  ?.copyWith(color: Colors.white),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            state.current?.temp.toString() ?? '--',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline3
+                                ?.copyWith(color: Colors.white),
+                          ),
+                          Flexible(
+                            fit: FlexFit.tight,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  state.current?.condition.text ?? '--',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1
+                                      ?.copyWith(color: Colors.white),
+                                ),
+                                Text(
+                                  'Feels like ${state.current?.feelslike} C',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1
+                                      ?.copyWith(color: Colors.white),
+                                )
+                              ],
                             ),
-                            Text(
-                              'Feels like 37 C',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  ?.copyWith(color: Colors.white),
-                            )
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Icon(
-                          Icons.wb_sunny,
-                          color: Colors.white,
-                        ),
-                      ),
+                          ),
+                          if (state.current?.condition.icon != null)
+                            Padding(
+                              padding: const EdgeInsets.all(20),
+                              child: Image.network(
+                                state.current!.condition.icon,
+                              ),
+                            ),
+                        ],
+                      )
                     ],
-                  )
-                ],
+                  ),
+                ),
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Rizal, Nueva Ecija',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline6
-                      ?.copyWith(fontWeight: FontWeight.bold),
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${state.location?.region}, ${state.location?.country}',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      'Today, ${state.location?.localtime}',
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
+                    Text(
+                      state.current?.condition.text ?? '',
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
+                  ],
                 ),
-                Text(
-                  'Today, 23 September',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-                Text(
-                  'Partly Cloudy',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-              ],
-            ),
-          )
-        ],
+              )
+            ],
+          );
+        }),
       ),
     );
   }
