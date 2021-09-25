@@ -63,7 +63,9 @@ class _LocationItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pop(context, url);
+      },
       child: Align(
         alignment: Alignment.centerLeft,
         child: Padding(

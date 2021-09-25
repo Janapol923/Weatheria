@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:weatheria/domain/weather_repository.dart';
 import 'package:weatheria/home/home_bloc.dart';
+import 'package:weatheria/search/search_screen.dart';
 import 'package:weatheria/util/weather_util.dart';
 import 'package:weatheria/widget/loading_section.dart';
 
@@ -14,123 +15,137 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => HomeBloc(GetIt.instance<WeatherRepository>()),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Current Weather'),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {},
-            )
-          ],
-        ),
-        body: BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
-          return Stack(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 200.0,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: WeatherUtil.getColorsByWeatherConditions(
-                          state.current?.condition.code ?? 1000,
+      child: BlocBuilder<HomeBloc, HomeState>(
+        buildWhen: (previous, current) => previous != current,
+        builder: (context, state) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Current Weather'),
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.search),
+                  onPressed: () async {
+                    var searchKeyword = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (buildContext) {
+                          return SearchScreen();
+                        },
+                      ),
+                    );
+                    context.read<HomeBloc>().add(HomeEvent.load(searchKeyword));
+                  },
+                )
+              ],
+            ),
+            body: Stack(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 200.0,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: WeatherUtil.getColorsByWeatherConditions(
+                            state.current?.condition.code ?? 1000,
+                          ),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Currently',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  ?.copyWith(color: Colors.white),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '${state.current?.temp}\u00B0',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline3
+                                      ?.copyWith(color: Colors.white),
+                                ),
+                                const SizedBox(width: 16),
+                                Flexible(
+                                  fit: FlexFit.tight,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        state.current?.condition.text ?? '--',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1
+                                            ?.copyWith(color: Colors.white),
+                                      ),
+                                      Text(
+                                        'Feels like ${state.current?.feelslike}\u2103',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1
+                                            ?.copyWith(color: Colors.white),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                if (state.current?.condition.icon != null)
+                                  Image.network(
+                                    state.current!.condition.icon,
+                                  ),
+                              ],
+                            )
+                          ],
                         ),
                       ),
                     ),
-                    child: Padding(
+                    Padding(
                       padding: const EdgeInsets.all(16),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          if (state.location != null)
+                            Text(
+                              _formatLocationName(
+                                state.location!.name,
+                                state.location!.region,
+                                state.location!.country,
+                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6
+                                  ?.copyWith(fontWeight: FontWeight.bold),
+                            ),
                           Text(
-                            'Currently',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1
-                                ?.copyWith(color: Colors.white),
+                            'Today, ${state.location?.localtime}',
+                            style: Theme.of(context).textTheme.subtitle1,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                '${state.current?.temp}\u00B0',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline3
-                                    ?.copyWith(color: Colors.white),
-                              ),
-                              const SizedBox(width: 16),
-                              Flexible(
-                                fit: FlexFit.tight,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      state.current?.condition.text ?? '--',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1
-                                          ?.copyWith(color: Colors.white),
-                                    ),
-                                    Text(
-                                      'Feels like ${state.current?.feelslike}\u2103',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1
-                                          ?.copyWith(color: Colors.white),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              if (state.current?.condition.icon != null)
-                                Image.network(
-                                  state.current!.condition.icon,
-                                ),
-                            ],
-                          )
+                          Text(
+                            state.current?.condition.text ?? '',
+                            style: Theme.of(context).textTheme.subtitle1,
+                          ),
                         ],
                       ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        if (state.location != null)
-                          Text(
-                            _formatLocationName(
-                              state.location!.name,
-                              state.location!.region,
-                              state.location!.country,
-                            ),
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline6
-                                ?.copyWith(fontWeight: FontWeight.bold),
-                          ),
-                        Text(
-                          'Today, ${state.location?.localtime}',
-                          style: Theme.of(context).textTheme.subtitle1,
-                        ),
-                        Text(
-                          state.current?.condition.text ?? '',
-                          style: Theme.of(context).textTheme.subtitle1,
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              if (state.isLoading) LoadingSection(),
-            ],
+                    )
+                  ],
+                ),
+                if (state.isLoading) LoadingSection(),
+              ],
+            ),
           );
-        }),
+        },
       ),
     );
   }

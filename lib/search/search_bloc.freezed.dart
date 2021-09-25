@@ -203,7 +203,7 @@ class _$SearchStateTearOff {
   const _$SearchStateTearOff();
 
   _SearchState call(
-      {required List<Location> locations, bool isLoading = true}) {
+      {required List<Location> locations, bool isLoading = false}) {
     return _SearchState(
       locations: locations,
       isLoading: isLoading,
@@ -299,11 +299,11 @@ class __$SearchStateCopyWithImpl<$Res> extends _$SearchStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_SearchState implements _SearchState {
-  const _$_SearchState({required this.locations, this.isLoading = true});
+  const _$_SearchState({required this.locations, this.isLoading = false});
 
   @override
   final List<Location> locations;
-  @JsonKey(defaultValue: true)
+  @JsonKey(defaultValue: false)
   @override
   final bool isLoading;
 

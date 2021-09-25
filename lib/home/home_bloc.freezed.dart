@@ -16,12 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$HomeEventTearOff {
   const _$HomeEventTearOff();
 
-  _Init init() {
-    return const _Init();
-  }
-
-  _Loading refresh() {
-    return const _Loading();
+  _Load load(String param) {
+    return _Load(
+      param,
+    );
   }
 
   _Error error([String? message]) {
@@ -38,30 +36,26 @@ const $HomeEvent = _$HomeEventTearOff();
 mixin _$HomeEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() init,
-    required TResult Function() refresh,
+    required TResult Function(String param) load,
     required TResult Function(String? message) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? init,
-    TResult Function()? refresh,
+    TResult Function(String param)? load,
     TResult Function(String? message)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Init value) init,
-    required TResult Function(_Loading value) refresh,
+    required TResult Function(_Load value) load,
     required TResult Function(_Error value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Init value)? init,
-    TResult Function(_Loading value)? refresh,
+    TResult Function(_Load value)? load,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) =>
@@ -84,59 +78,82 @@ class _$HomeEventCopyWithImpl<$Res> implements $HomeEventCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$InitCopyWith<$Res> {
-  factory _$InitCopyWith(_Init value, $Res Function(_Init) then) =
-      __$InitCopyWithImpl<$Res>;
+abstract class _$LoadCopyWith<$Res> {
+  factory _$LoadCopyWith(_Load value, $Res Function(_Load) then) =
+      __$LoadCopyWithImpl<$Res>;
+  $Res call({String param});
 }
 
 /// @nodoc
-class __$InitCopyWithImpl<$Res> extends _$HomeEventCopyWithImpl<$Res>
-    implements _$InitCopyWith<$Res> {
-  __$InitCopyWithImpl(_Init _value, $Res Function(_Init) _then)
-      : super(_value, (v) => _then(v as _Init));
+class __$LoadCopyWithImpl<$Res> extends _$HomeEventCopyWithImpl<$Res>
+    implements _$LoadCopyWith<$Res> {
+  __$LoadCopyWithImpl(_Load _value, $Res Function(_Load) _then)
+      : super(_value, (v) => _then(v as _Load));
 
   @override
-  _Init get _value => super._value as _Init;
+  _Load get _value => super._value as _Load;
+
+  @override
+  $Res call({
+    Object? param = freezed,
+  }) {
+    return _then(_Load(
+      param == freezed
+          ? _value.param
+          : param // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$_Init implements _Init {
-  const _$_Init();
+class _$_Load implements _Load {
+  const _$_Load(this.param);
+
+  @override
+  final String param;
 
   @override
   String toString() {
-    return 'HomeEvent.init()';
+    return 'HomeEvent.load(param: $param)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Init);
+    return identical(this, other) ||
+        (other is _Load &&
+            (identical(other.param, param) ||
+                const DeepCollectionEquality().equals(other.param, param)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(param);
+
+  @JsonKey(ignore: true)
+  @override
+  _$LoadCopyWith<_Load> get copyWith =>
+      __$LoadCopyWithImpl<_Load>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() init,
-    required TResult Function() refresh,
+    required TResult Function(String param) load,
     required TResult Function(String? message) error,
   }) {
-    return init();
+    return load(param);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? init,
-    TResult Function()? refresh,
+    TResult Function(String param)? load,
     TResult Function(String? message)? error,
     required TResult orElse(),
   }) {
-    if (init != null) {
-      return init();
+    if (load != null) {
+      return load(param);
     }
     return orElse();
   }
@@ -144,117 +161,32 @@ class _$_Init implements _Init {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Init value) init,
-    required TResult Function(_Loading value) refresh,
+    required TResult Function(_Load value) load,
     required TResult Function(_Error value) error,
   }) {
-    return init(this);
+    return load(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Init value)? init,
-    TResult Function(_Loading value)? refresh,
+    TResult Function(_Load value)? load,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
-    if (init != null) {
-      return init(this);
+    if (load != null) {
+      return load(this);
     }
     return orElse();
   }
 }
 
-abstract class _Init implements HomeEvent {
-  const factory _Init() = _$_Init;
-}
+abstract class _Load implements HomeEvent {
+  const factory _Load(String param) = _$_Load;
 
-/// @nodoc
-abstract class _$LoadingCopyWith<$Res> {
-  factory _$LoadingCopyWith(_Loading value, $Res Function(_Loading) then) =
-      __$LoadingCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$LoadingCopyWithImpl<$Res> extends _$HomeEventCopyWithImpl<$Res>
-    implements _$LoadingCopyWith<$Res> {
-  __$LoadingCopyWithImpl(_Loading _value, $Res Function(_Loading) _then)
-      : super(_value, (v) => _then(v as _Loading));
-
-  @override
-  _Loading get _value => super._value as _Loading;
-}
-
-/// @nodoc
-
-class _$_Loading implements _Loading {
-  const _$_Loading();
-
-  @override
-  String toString() {
-    return 'HomeEvent.refresh()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Loading);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() init,
-    required TResult Function() refresh,
-    required TResult Function(String? message) error,
-  }) {
-    return refresh();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? init,
-    TResult Function()? refresh,
-    TResult Function(String? message)? error,
-    required TResult orElse(),
-  }) {
-    if (refresh != null) {
-      return refresh();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Init value) init,
-    required TResult Function(_Loading value) refresh,
-    required TResult Function(_Error value) error,
-  }) {
-    return refresh(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Init value)? init,
-    TResult Function(_Loading value)? refresh,
-    TResult Function(_Error value)? error,
-    required TResult orElse(),
-  }) {
-    if (refresh != null) {
-      return refresh(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Loading implements HomeEvent {
-  const factory _Loading() = _$_Loading;
+  String get param => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$LoadCopyWith<_Load> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -319,8 +251,7 @@ class _$_Error implements _Error {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() init,
-    required TResult Function() refresh,
+    required TResult Function(String param) load,
     required TResult Function(String? message) error,
   }) {
     return error(message);
@@ -329,8 +260,7 @@ class _$_Error implements _Error {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? init,
-    TResult Function()? refresh,
+    TResult Function(String param)? load,
     TResult Function(String? message)? error,
     required TResult orElse(),
   }) {
@@ -343,8 +273,7 @@ class _$_Error implements _Error {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Init value) init,
-    required TResult Function(_Loading value) refresh,
+    required TResult Function(_Load value) load,
     required TResult Function(_Error value) error,
   }) {
     return error(this);
@@ -353,8 +282,7 @@ class _$_Error implements _Error {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Init value)? init,
-    TResult Function(_Loading value)? refresh,
+    TResult Function(_Load value)? load,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {

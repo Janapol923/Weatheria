@@ -9,9 +9,9 @@ class WeatherRepository {
 
   WeatherRepository({required this.service});
 
-  Future<CurrentWeather> getCurrentWeather() async {
+  Future<CurrentWeather> getCurrentWeather(String param) async {
     var response =
-        await service.getCurrentWeather(Config.apiKey, 'Tokyo', 'no');
+        await service.getCurrentWeather(Config.apiKey, param, 'no');
     return response.toDomain();
   }
 

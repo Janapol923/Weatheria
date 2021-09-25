@@ -14,21 +14,21 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final WeatherRepository repository;
 
   HomeBloc(this.repository) : super(HomeState()) {
-    add(HomeEvent.init());
+    add(HomeEvent.load('rizal-nueva-ecija-philippines'));
   }
 
   @override
   Stream<HomeState> mapEventToState(HomeEvent event) async* {
     yield* event.map(
-      init: (value) async* {
-        var currentWeather = await repository.getCurrentWeather();
+      load: (value) async* {
+        yield state.copyWith(isLoading: true);
+        var currentWeather = await repository.getCurrentWeather(value.param);
         yield state.copyWith(
           current: currentWeather.current,
           location: currentWeather.location,
           isLoading: false,
         );
       },
-      refresh: (value) async* {},
       error: (value) async* {},
     );
   }
