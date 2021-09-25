@@ -35,6 +35,23 @@ class _WeatherService implements WeatherService {
     return value;
   }
 
+  @override
+  Future<List<RawLocation>> search(apikey, keyword) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'key': apikey, r'q': keyword};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<RawLocation>>(
+            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
+                .compose(_dio.options, 'v1/search.json',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) => RawLocation.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

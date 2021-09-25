@@ -14,4 +14,10 @@ abstract class WeatherService {
     @Query('q') String searchParam,
     @Query('aqi') String aqi,
   );
+
+  @GET('v1/search.json')
+  Future<List<RawLocation>> search(
+    @Query('key') String apikey,
+    @Query('q') String keyword,
+  );
 }

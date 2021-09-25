@@ -65,6 +65,7 @@ RawLocation _$RawLocationFromJson(Map<String, dynamic> json) {
     lat: (json['lat'] as num?)?.toDouble(),
     lon: (json['lon'] as num?)?.toDouble(),
     localtime: json['localtime'] as String?,
+    url: json['url'] as String?,
   );
 }
 
@@ -76,4 +77,5 @@ Map<String, dynamic> _$RawLocationToJson(RawLocation instance) =>
       'lat': instance.lat,
       'lon': instance.lon,
       'localtime': instance.localtime,
+      'url': instance.url,
     };

@@ -67,6 +67,7 @@ class RawLocation {
   final double? lat;
   final double? lon;
   final String? localtime;
+  final String? url;
 
   RawLocation({
     required this.name,
@@ -75,6 +76,7 @@ class RawLocation {
     this.lat,
     this.lon,
     this.localtime,
+    this.url,
   });
 
   factory RawLocation.fromJson(Map<String, dynamic> json) =>
