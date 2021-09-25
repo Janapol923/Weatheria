@@ -22,7 +22,8 @@ class _$LocationTearOff {
       required String country,
       double? lat,
       double? lon,
-      String? localtime}) {
+      String? localtime,
+      String? url}) {
     return _Location(
       name: name,
       region: region,
@@ -30,6 +31,7 @@ class _$LocationTearOff {
       lat: lat,
       lon: lon,
       localtime: localtime,
+      url: url,
     );
   }
 }
@@ -45,6 +47,7 @@ mixin _$Location {
   double? get lat => throw _privateConstructorUsedError;
   double? get lon => throw _privateConstructorUsedError;
   String? get localtime => throw _privateConstructorUsedError;
+  String? get url => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LocationCopyWith<Location> get copyWith =>
@@ -61,7 +64,8 @@ abstract class $LocationCopyWith<$Res> {
       String country,
       double? lat,
       double? lon,
-      String? localtime});
+      String? localtime,
+      String? url});
 }
 
 /// @nodoc
@@ -80,6 +84,7 @@ class _$LocationCopyWithImpl<$Res> implements $LocationCopyWith<$Res> {
     Object? lat = freezed,
     Object? lon = freezed,
     Object? localtime = freezed,
+    Object? url = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
@@ -106,6 +111,10 @@ class _$LocationCopyWithImpl<$Res> implements $LocationCopyWith<$Res> {
           ? _value.localtime
           : localtime // ignore: cast_nullable_to_non_nullable
               as String?,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -121,7 +130,8 @@ abstract class _$LocationCopyWith<$Res> implements $LocationCopyWith<$Res> {
       String country,
       double? lat,
       double? lon,
-      String? localtime});
+      String? localtime,
+      String? url});
 }
 
 /// @nodoc
@@ -141,6 +151,7 @@ class __$LocationCopyWithImpl<$Res> extends _$LocationCopyWithImpl<$Res>
     Object? lat = freezed,
     Object? lon = freezed,
     Object? localtime = freezed,
+    Object? url = freezed,
   }) {
     return _then(_Location(
       name: name == freezed
@@ -167,6 +178,10 @@ class __$LocationCopyWithImpl<$Res> extends _$LocationCopyWithImpl<$Res>
           ? _value.localtime
           : localtime // ignore: cast_nullable_to_non_nullable
               as String?,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -180,7 +195,8 @@ class _$_Location extends _Location {
       required this.country,
       this.lat,
       this.lon,
-      this.localtime})
+      this.localtime,
+      this.url})
       : super._();
 
   @override
@@ -195,10 +211,12 @@ class _$_Location extends _Location {
   final double? lon;
   @override
   final String? localtime;
+  @override
+  final String? url;
 
   @override
   String toString() {
-    return 'Location(name: $name, region: $region, country: $country, lat: $lat, lon: $lon, localtime: $localtime)';
+    return 'Location(name: $name, region: $region, country: $country, lat: $lat, lon: $lon, localtime: $localtime, url: $url)';
   }
 
   @override
@@ -218,7 +236,9 @@ class _$_Location extends _Location {
                 const DeepCollectionEquality().equals(other.lon, lon)) &&
             (identical(other.localtime, localtime) ||
                 const DeepCollectionEquality()
-                    .equals(other.localtime, localtime)));
+                    .equals(other.localtime, localtime)) &&
+            (identical(other.url, url) ||
+                const DeepCollectionEquality().equals(other.url, url)));
   }
 
   @override
@@ -229,7 +249,8 @@ class _$_Location extends _Location {
       const DeepCollectionEquality().hash(country) ^
       const DeepCollectionEquality().hash(lat) ^
       const DeepCollectionEquality().hash(lon) ^
-      const DeepCollectionEquality().hash(localtime);
+      const DeepCollectionEquality().hash(localtime) ^
+      const DeepCollectionEquality().hash(url);
 
   @JsonKey(ignore: true)
   @override
@@ -244,7 +265,8 @@ abstract class _Location extends Location {
       required String country,
       double? lat,
       double? lon,
-      String? localtime}) = _$_Location;
+      String? localtime,
+      String? url}) = _$_Location;
   const _Location._() : super._();
 
   @override
@@ -259,6 +281,8 @@ abstract class _Location extends Location {
   double? get lon => throw _privateConstructorUsedError;
   @override
   String? get localtime => throw _privateConstructorUsedError;
+  @override
+  String? get url => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$LocationCopyWith<_Location> get copyWith =>

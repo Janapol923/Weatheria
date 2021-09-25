@@ -12,5 +12,6 @@ class Location with _$Location {
     double? lat,
     double? lon,
     String? localtime,
+    String? url,
   }) = _Location;
 }

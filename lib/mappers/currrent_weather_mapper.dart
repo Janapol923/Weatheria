@@ -32,5 +32,6 @@ extension LocationMapper on RawLocation {
         lat: lat,
         lon: lon,
         localtime: localtime,
+        url: url,
       );
 }

@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:weatheria/domain/weather_repository.dart';
 import 'package:weatheria/home/home_bloc.dart';
 import 'package:weatheria/util/weather_util.dart';
+import 'package:weatheria/widget/loading_section.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -126,18 +127,7 @@ class HomeScreen extends StatelessWidget {
                   )
                 ],
               ),
-              if (state.isLoading)
-                Stack(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(color: Color(0xFFFFFFFF)),
-                      child: Center(
-                        child: CircularProgressIndicator(color: Colors.blue),
-                      ),
-                      constraints: BoxConstraints.expand(),
-                    )
-                  ],
-                )
+              if (state.isLoading) LoadingSection(),
             ],
           );
         }),
