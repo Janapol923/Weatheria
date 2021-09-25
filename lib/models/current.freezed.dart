@@ -13,11 +13,187 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
+class _$CurrentWeatherTearOff {
+  const _$CurrentWeatherTearOff();
+
+  _CurrentWeather call({required Location location, required Current current}) {
+    return _CurrentWeather(
+      location: location,
+      current: current,
+    );
+  }
+}
+
+/// @nodoc
+const $CurrentWeather = _$CurrentWeatherTearOff();
+
+/// @nodoc
+mixin _$CurrentWeather {
+  Location get location => throw _privateConstructorUsedError;
+  Current get current => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $CurrentWeatherCopyWith<CurrentWeather> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CurrentWeatherCopyWith<$Res> {
+  factory $CurrentWeatherCopyWith(
+          CurrentWeather value, $Res Function(CurrentWeather) then) =
+      _$CurrentWeatherCopyWithImpl<$Res>;
+  $Res call({Location location, Current current});
+
+  $LocationCopyWith<$Res> get location;
+  $CurrentCopyWith<$Res> get current;
+}
+
+/// @nodoc
+class _$CurrentWeatherCopyWithImpl<$Res>
+    implements $CurrentWeatherCopyWith<$Res> {
+  _$CurrentWeatherCopyWithImpl(this._value, this._then);
+
+  final CurrentWeather _value;
+  // ignore: unused_field
+  final $Res Function(CurrentWeather) _then;
+
+  @override
+  $Res call({
+    Object? location = freezed,
+    Object? current = freezed,
+  }) {
+    return _then(_value.copyWith(
+      location: location == freezed
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as Location,
+      current: current == freezed
+          ? _value.current
+          : current // ignore: cast_nullable_to_non_nullable
+              as Current,
+    ));
+  }
+
+  @override
+  $LocationCopyWith<$Res> get location {
+    return $LocationCopyWith<$Res>(_value.location, (value) {
+      return _then(_value.copyWith(location: value));
+    });
+  }
+
+  @override
+  $CurrentCopyWith<$Res> get current {
+    return $CurrentCopyWith<$Res>(_value.current, (value) {
+      return _then(_value.copyWith(current: value));
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$CurrentWeatherCopyWith<$Res>
+    implements $CurrentWeatherCopyWith<$Res> {
+  factory _$CurrentWeatherCopyWith(
+          _CurrentWeather value, $Res Function(_CurrentWeather) then) =
+      __$CurrentWeatherCopyWithImpl<$Res>;
+  @override
+  $Res call({Location location, Current current});
+
+  @override
+  $LocationCopyWith<$Res> get location;
+  @override
+  $CurrentCopyWith<$Res> get current;
+}
+
+/// @nodoc
+class __$CurrentWeatherCopyWithImpl<$Res>
+    extends _$CurrentWeatherCopyWithImpl<$Res>
+    implements _$CurrentWeatherCopyWith<$Res> {
+  __$CurrentWeatherCopyWithImpl(
+      _CurrentWeather _value, $Res Function(_CurrentWeather) _then)
+      : super(_value, (v) => _then(v as _CurrentWeather));
+
+  @override
+  _CurrentWeather get _value => super._value as _CurrentWeather;
+
+  @override
+  $Res call({
+    Object? location = freezed,
+    Object? current = freezed,
+  }) {
+    return _then(_CurrentWeather(
+      location: location == freezed
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as Location,
+      current: current == freezed
+          ? _value.current
+          : current // ignore: cast_nullable_to_non_nullable
+              as Current,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_CurrentWeather extends _CurrentWeather {
+  const _$_CurrentWeather({required this.location, required this.current})
+      : super._();
+
+  @override
+  final Location location;
+  @override
+  final Current current;
+
+  @override
+  String toString() {
+    return 'CurrentWeather(location: $location, current: $current)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _CurrentWeather &&
+            (identical(other.location, location) ||
+                const DeepCollectionEquality()
+                    .equals(other.location, location)) &&
+            (identical(other.current, current) ||
+                const DeepCollectionEquality().equals(other.current, current)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(location) ^
+      const DeepCollectionEquality().hash(current);
+
+  @JsonKey(ignore: true)
+  @override
+  _$CurrentWeatherCopyWith<_CurrentWeather> get copyWith =>
+      __$CurrentWeatherCopyWithImpl<_CurrentWeather>(this, _$identity);
+}
+
+abstract class _CurrentWeather extends CurrentWeather {
+  const factory _CurrentWeather(
+      {required Location location,
+      required Current current}) = _$_CurrentWeather;
+  const _CurrentWeather._() : super._();
+
+  @override
+  Location get location => throw _privateConstructorUsedError;
+  @override
+  Current get current => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$CurrentWeatherCopyWith<_CurrentWeather> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 class _$CurrentTearOff {
   const _$CurrentTearOff();
 
   _Current call(
-      {required double temp,
+      {required String temp,
       required Condition condition,
       required String windKph,
       required String windDegree,
@@ -39,7 +215,7 @@ const $Current = _$CurrentTearOff();
 
 /// @nodoc
 mixin _$Current {
-  double get temp => throw _privateConstructorUsedError;
+  String get temp => throw _privateConstructorUsedError;
   Condition get condition => throw _privateConstructorUsedError;
   String get windKph => throw _privateConstructorUsedError;
   String get windDegree => throw _privateConstructorUsedError;
@@ -55,7 +231,7 @@ abstract class $CurrentCopyWith<$Res> {
   factory $CurrentCopyWith(Current value, $Res Function(Current) then) =
       _$CurrentCopyWithImpl<$Res>;
   $Res call(
-      {double temp,
+      {String temp,
       Condition condition,
       String windKph,
       String windDegree,
@@ -86,7 +262,7 @@ class _$CurrentCopyWithImpl<$Res> implements $CurrentCopyWith<$Res> {
       temp: temp == freezed
           ? _value.temp
           : temp // ignore: cast_nullable_to_non_nullable
-              as double,
+              as String,
       condition: condition == freezed
           ? _value.condition
           : condition // ignore: cast_nullable_to_non_nullable
@@ -124,7 +300,7 @@ abstract class _$CurrentCopyWith<$Res> implements $CurrentCopyWith<$Res> {
       __$CurrentCopyWithImpl<$Res>;
   @override
   $Res call(
-      {double temp,
+      {String temp,
       Condition condition,
       String windKph,
       String windDegree,
@@ -157,7 +333,7 @@ class __$CurrentCopyWithImpl<$Res> extends _$CurrentCopyWithImpl<$Res>
       temp: temp == freezed
           ? _value.temp
           : temp // ignore: cast_nullable_to_non_nullable
-              as double,
+              as String,
       condition: condition == freezed
           ? _value.condition
           : condition // ignore: cast_nullable_to_non_nullable
@@ -195,7 +371,7 @@ class _$_Current extends _Current {
       : super._();
 
   @override
-  final double temp;
+  final String temp;
   @override
   final Condition condition;
   @override
@@ -253,7 +429,7 @@ class _$_Current extends _Current {
 
 abstract class _Current extends Current {
   const factory _Current(
-      {required double temp,
+      {required String temp,
       required Condition condition,
       required String windKph,
       required String windDegree,
@@ -262,7 +438,7 @@ abstract class _Current extends Current {
   const _Current._() : super._();
 
   @override
-  double get temp => throw _privateConstructorUsedError;
+  String get temp => throw _privateConstructorUsedError;
   @override
   Condition get condition => throw _privateConstructorUsedError;
   @override
@@ -284,7 +460,7 @@ class _$ConditionTearOff {
   const _$ConditionTearOff();
 
   _Condition call(
-      {required String text, required String icon, required String code}) {
+      {required String text, required String icon, required int code}) {
     return _Condition(
       text: text,
       icon: icon,
@@ -300,7 +476,7 @@ const $Condition = _$ConditionTearOff();
 mixin _$Condition {
   String get text => throw _privateConstructorUsedError;
   String get icon => throw _privateConstructorUsedError;
-  String get code => throw _privateConstructorUsedError;
+  int get code => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ConditionCopyWith<Condition> get copyWith =>
@@ -311,7 +487,7 @@ mixin _$Condition {
 abstract class $ConditionCopyWith<$Res> {
   factory $ConditionCopyWith(Condition value, $Res Function(Condition) then) =
       _$ConditionCopyWithImpl<$Res>;
-  $Res call({String text, String icon, String code});
+  $Res call({String text, String icon, int code});
 }
 
 /// @nodoc
@@ -340,7 +516,7 @@ class _$ConditionCopyWithImpl<$Res> implements $ConditionCopyWith<$Res> {
       code: code == freezed
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
     ));
   }
 }
@@ -351,7 +527,7 @@ abstract class _$ConditionCopyWith<$Res> implements $ConditionCopyWith<$Res> {
           _Condition value, $Res Function(_Condition) then) =
       __$ConditionCopyWithImpl<$Res>;
   @override
-  $Res call({String text, String icon, String code});
+  $Res call({String text, String icon, int code});
 }
 
 /// @nodoc
@@ -381,7 +557,7 @@ class __$ConditionCopyWithImpl<$Res> extends _$ConditionCopyWithImpl<$Res>
       code: code == freezed
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
     ));
   }
 }
@@ -398,7 +574,7 @@ class _$_Condition extends _Condition {
   @override
   final String icon;
   @override
-  final String code;
+  final int code;
 
   @override
   String toString() {
@@ -434,7 +610,7 @@ abstract class _Condition extends Condition {
   const factory _Condition(
       {required String text,
       required String icon,
-      required String code}) = _$_Condition;
+      required int code}) = _$_Condition;
   const _Condition._() : super._();
 
   @override
@@ -442,7 +618,7 @@ abstract class _Condition extends Condition {
   @override
   String get icon => throw _privateConstructorUsedError;
   @override
-  String get code => throw _privateConstructorUsedError;
+  int get code => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$ConditionCopyWith<_Condition> get copyWith =>

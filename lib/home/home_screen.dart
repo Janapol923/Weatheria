@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:weatheria/domain/weather_repository.dart';
 import 'package:weatheria/home/home_bloc.dart';
 import 'package:weatheria/util/weather_util.dart';
 
@@ -10,7 +12,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => HomeBloc(),
+      create: (_) => HomeBloc(GetIt.instance<WeatherRepository>()),
       child: Scaffold(
         appBar: AppBar(
           title: Text('Current Weather'),
@@ -32,7 +34,7 @@ class HomeScreen extends StatelessWidget {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: WeatherUtil.getColorsByWeatherConditions(
-                      int.parse(state.current?.condition.code ?? '1000'),
+                      state.current?.condition.code ?? 1000,
                     ),
                   ),
                 ),
@@ -53,7 +55,7 @@ class HomeScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            state.current?.temp.toString() ?? '--',
+                            state.current?.temp ?? '--',
                             style: Theme.of(context)
                                 .textTheme
                                 .headline3
@@ -82,11 +84,8 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                           if (state.current?.condition.icon != null)
-                            Padding(
-                              padding: const EdgeInsets.all(20),
-                              child: Image.network(
-                                state.current!.condition.icon,
-                              ),
+                            Image.network(
+                              state.current!.condition.icon,
                             ),
                         ],
                       )
