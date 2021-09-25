@@ -10,7 +10,7 @@ class WeatherRepository {
 
   Future<CurrentWeather> getCurrentWeather() async {
     var response =
-        await service.getCurrentWeather(Config.apiKey, 'Rizal, Nueva Ecija', 'no');
+        await service.getCurrentWeather(Config.apiKey, 'Tokyo', 'no');
     return response.toDomain();
   }
 }

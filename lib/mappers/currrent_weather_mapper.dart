@@ -11,16 +11,16 @@ extension CurrentWeatherMapper on CurrentWeatherResponse {
 
 extension CurrentMapper on RawCurrent {
   Current toDomain() => Current(
-        temp: temp_c.toString(),
+        temp: temp_c.toInt().toString(),
         condition: Condition(
           text: condition.text,
           icon: 'http:' + condition.icon,
           code: condition.code,
         ),
-        windKph: wind_kph.toString(),
-        windDegree: wind_degree.toString(),
-        humidity: humidity.toString(),
-        feelslike: feelslike_c.toString(),
+        windKph: wind_kph.toInt().toString(),
+        windDegree: wind_degree.toInt().toString(),
+        humidity: humidity.toInt().toString(),
+        feelslike: feelslike_c.toInt().toString(),
       );
 }
 

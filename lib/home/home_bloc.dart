@@ -25,6 +25,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         yield state.copyWith(
           current: currentWeather.current,
           location: currentWeather.location,
+          isLoading: false,
         );
       },
       refresh: (value) async* {},

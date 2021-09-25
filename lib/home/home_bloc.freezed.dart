@@ -377,10 +377,12 @@ abstract class _Error implements HomeEvent {
 class _$HomeStateTearOff {
   const _$HomeStateTearOff();
 
-  _HomeState call({Location? location, Current? current}) {
+  _HomeState call(
+      {Location? location, Current? current, bool isLoading = true}) {
     return _HomeState(
       location: location,
       current: current,
+      isLoading: isLoading,
     );
   }
 }
@@ -392,6 +394,7 @@ const $HomeState = _$HomeStateTearOff();
 mixin _$HomeState {
   Location? get location => throw _privateConstructorUsedError;
   Current? get current => throw _privateConstructorUsedError;
+  bool get isLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeStateCopyWith<HomeState> get copyWith =>
@@ -402,7 +405,7 @@ mixin _$HomeState {
 abstract class $HomeStateCopyWith<$Res> {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) then) =
       _$HomeStateCopyWithImpl<$Res>;
-  $Res call({Location? location, Current? current});
+  $Res call({Location? location, Current? current, bool isLoading});
 
   $LocationCopyWith<$Res>? get location;
   $CurrentCopyWith<$Res>? get current;
@@ -420,6 +423,7 @@ class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
   $Res call({
     Object? location = freezed,
     Object? current = freezed,
+    Object? isLoading = freezed,
   }) {
     return _then(_value.copyWith(
       location: location == freezed
@@ -430,6 +434,10 @@ class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
           ? _value.current
           : current // ignore: cast_nullable_to_non_nullable
               as Current?,
+      isLoading: isLoading == freezed
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 
@@ -462,7 +470,7 @@ abstract class _$HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
           _HomeState value, $Res Function(_HomeState) then) =
       __$HomeStateCopyWithImpl<$Res>;
   @override
-  $Res call({Location? location, Current? current});
+  $Res call({Location? location, Current? current, bool isLoading});
 
   @override
   $LocationCopyWith<$Res>? get location;
@@ -483,6 +491,7 @@ class __$HomeStateCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
   $Res call({
     Object? location = freezed,
     Object? current = freezed,
+    Object? isLoading = freezed,
   }) {
     return _then(_HomeState(
       location: location == freezed
@@ -493,6 +502,10 @@ class __$HomeStateCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
           ? _value.current
           : current // ignore: cast_nullable_to_non_nullable
               as Current?,
+      isLoading: isLoading == freezed
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -500,16 +513,19 @@ class __$HomeStateCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_HomeState implements _HomeState {
-  const _$_HomeState({this.location, this.current});
+  const _$_HomeState({this.location, this.current, this.isLoading = true});
 
   @override
   final Location? location;
   @override
   final Current? current;
+  @JsonKey(defaultValue: true)
+  @override
+  final bool isLoading;
 
   @override
   String toString() {
-    return 'HomeState(location: $location, current: $current)';
+    return 'HomeState(location: $location, current: $current, isLoading: $isLoading)';
   }
 
   @override
@@ -520,14 +536,19 @@ class _$_HomeState implements _HomeState {
                 const DeepCollectionEquality()
                     .equals(other.location, location)) &&
             (identical(other.current, current) ||
-                const DeepCollectionEquality().equals(other.current, current)));
+                const DeepCollectionEquality()
+                    .equals(other.current, current)) &&
+            (identical(other.isLoading, isLoading) ||
+                const DeepCollectionEquality()
+                    .equals(other.isLoading, isLoading)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(location) ^
-      const DeepCollectionEquality().hash(current);
+      const DeepCollectionEquality().hash(current) ^
+      const DeepCollectionEquality().hash(isLoading);
 
   @JsonKey(ignore: true)
   @override
@@ -536,13 +557,15 @@ class _$_HomeState implements _HomeState {
 }
 
 abstract class _HomeState implements HomeState {
-  const factory _HomeState({Location? location, Current? current}) =
-      _$_HomeState;
+  const factory _HomeState(
+      {Location? location, Current? current, bool isLoading}) = _$_HomeState;
 
   @override
   Location? get location => throw _privateConstructorUsedError;
   @override
   Current? get current => throw _privateConstructorUsedError;
+  @override
+  bool get isLoading => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$HomeStateCopyWith<_HomeState> get copyWith =>
