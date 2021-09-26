@@ -13,6 +13,16 @@ Project contains
 * Weatherapi for weather information
 * https://www.weatherapi.com/api-explorer.aspx
 
+## Project branches
+
+There are 4 feature branches in this project, each branch is the step by step process took place to create this project. You can check the ff.
+
+1. weather_home_widgets
+2. create_models_and_bloc
+3. create_network_di_models
+4. search_function
+
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
